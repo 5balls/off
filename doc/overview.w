@@ -80,9 +80,9 @@ If \verb|off| is run with the \verb|view| argument it will run a program on the 
 @{@%
 view_parser = command_parser.add_parser("view", help="Run command associated with entry")
 view_parser.add_argument("number",type=int,nargs="?")
-view_subparser = view_parser.add_subparsers(dest="subcommand")
-view_subparser.add_parser("search")
-view_subparser.add_parser("category")
+#view_subparser = view_parser.add_subparsers(dest="subcommand")
+#view_subparser.add_parser("search")
+#view_subparser.add_parser("category")
 @}
 
 Search and category are not implemented yet.
@@ -170,8 +170,8 @@ This library is used to create a md5sum hash from the id to have a directory han
 Youtube\_dl is used to download youtube videos
 
 @d Python library imports
-@{import youtube_dl
-@| youtube_dl @}
+@{import yt_dlp
+@| yt_dlp @}
 
 \subsection{subprocess}
 

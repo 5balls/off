@@ -306,7 +306,7 @@ def download(self):
         'format': 'best',
         'outtmpl': '~/.off/downloads/' + self.feedid + '/' + hashlib.md5(self.id.encode('utf-8')).hexdigest() + '.%(ext)s',
         }
-        with youtube_dl.YoutubeDL(ydl_opts) as ydl:
+        with yt_dlp.YoutubeDL(ydl_opts) as ydl:
             ydl.download([self.link])
 @| download @}
 
@@ -316,9 +316,10 @@ def download(self):
 @{@%
 def view(self):
     if self.type == "youtube":
-        files = fnmatch.filter(os.path.join(os.path.expanduser("~/.off/downloads"),self.feedid, hashlib.md5(self.id.encode('utf-8')).hexdigest()),".*")
+        candidates = os.listdir(os.path.join(os.path.expanduser("~/.off/downloads"),self.feedid))
+        files = fnmatch.filter(candidates, hashlib.md5(self.id.encode('utf-8')).hexdigest() + ".*")
         for file in files:
-            subprocess.call(['vlc',file])
+            subprocess.call(['vlc',os.path.join(os.path.expanduser("~/.off/downloads"),self.feedid,file)])
 @| view @}
 
 \subsection{delete}
@@ -327,10 +328,12 @@ def view(self):
 @{@%
 def delete(self):
      if self.type == "youtube":
-        files = fnmatch.filter(os.path.join(os.path.expanduser("~/.off/downloads"),self.feedid, hashlib.md5(self.id.encode('utf-8')).hexdigest()),".*")
+        candidates = os.listdir(os.path.join(os.path.expanduser("~/.off/downloads"),self.feedid))
+        files = fnmatch.filter(candidates, hashlib.md5(self.id.encode('utf-8')).hexdigest() + ".*")
         for file in files:
-            if os.path.isfile(file):
-                os.remove(file)
+            fullfilename = os.path.join(os.path.expanduser("~/.off/downloads"),self.feedid,file)
+            if os.path.isfile(fullfilename):
+                os.remove(fullfilename)
 @| delete @}
 
 \subsection{print}

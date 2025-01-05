@@ -233,7 +233,7 @@ def createExampleFile(self):
 @{@%
 def writeFile(self):
     file = open(self.jsonFileName, "w")
-    file.write(jsonpickle.encode(self.ressources))
+    file.write(jsonpickle.encode(self.ressources,indent=2))
     file.close()
 @| writeFile @}
 

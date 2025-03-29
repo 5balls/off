@@ -303,7 +303,7 @@ def download(self):
         os.mkdir(os.path.join(os.path.expanduser("~/.off/downloads"), self.feedid))
     if self.type == "youtube":
         ydl_opts = {
-        'format': 'best',
+        'format': 'bv*[height<=1080]+ba/b[height<=1080] / wv*+ba/w',
         'outtmpl': '~/.off/downloads/' + self.feedid + '/' + hashlib.md5(self.id.encode('utf-8')).hexdigest() + '.%(ext)s',
         }
         with yt_dlp.YoutubeDL(ydl_opts) as ydl:
